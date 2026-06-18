@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager Application</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+
+<body>
+    <main>
+        <nav>
+            <div class="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Alternate_Task_Manager_icon.png"
+                    alt="logo">
+                <h1>Task Manager</h1>
+            </div>
+            <div class="nav-buttons">
+                <!-- <button class="theme-btn dark"><i class="ri-moon-line"></i></button> -->
+                <button class="theme-btn"><i class="ri-sun-line"></i></button>
+                <button class="new-task-btn">New Task <i class="ri-add-fill"></i></button>
+            </div>
+        </nav>
+
+        <section class="top">
+            <div class="search-container">
+                <i class="ri-search-line"></i>
+                <input type="text" id="searchTask" placeholder="Search tasks...">
+            </div>
+
+            <div class="filter-container">
+                <select name="taskCategory" id="taskCategory">
+                    <option value="All">Select Category</option>
+                    <option value="Work">Work</option>
+                    <option value="Study">Study</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Health">Health</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <select name="taskStatus" id="taskStatus">
+                    <option value="All tasks">All tasks</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Done">Done</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="task-stats-container">
+            <div class="stats-card">
+                <div class="stats-card-img">
+                    <i class="ri-list-unordered"></i>
+                </div>
+                <div class="stats-card-info">
+                    <p>Total Tasks</p>
+                    <h1 id="all-count">0</h1>
+                </div>
+            </div>
+
+            <div class="stats-card">
+                <div class="stats-card-img pending">
+                    <i class="ri-timer-2-line"></i>
+                </div>
+                <div class="stats-card-info">
+                    <p>Pending</p>
+                    <h1 id="pending-count">0</h1>
+                </div>
+            </div>
+
+            <div class="stats-card">
+                <div class="stats-card-img completed">
+                    <i class="ri-check-line"></i>
+                </div>
+                <div class="stats-card-info">
+                    <p>Completed</p>
+                    <h1 id="completed-count">0</h1>
+                </div>
+            </div>
+
+            <div class="stats-card">
+                <div class="stats-card-img categories">
+                    <i class="ri-price-tag-3-line"></i>
+                </div>
+                <div class="stats-card-info">
+                    <p>Categories</p>
+                    <h1 id="categories-count">0</h1>
+                </div>
+            </div>
+
+        </section>
+
+        <div class="overlay">
+            <form>
+                <div class="top">
+                    <h1>Add task</h1>
+                    <h1 id="close">X</h1>
+                </div>
+                <input type="text" placeholder="Enter Task Title">
+                <textarea rows="7" placeholder="Enter Task Description (optional)"></textarea>
+                <select name="taskCategory" id="taskCategory">
+                    <option value="">Select Category</option>
+                    <option value="Work">Work</option>
+                    <option value="Study">Study</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Health">Health</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Other">Other</option>
+                </select>
+                <div class="buttons">
+                    <button type="reset" id="clear-btn">Clear</button>
+                    <button type="submit" id="add-btn">Add Task</button>
+                </div>
+            </form>
+        </div>
+
+        <section class="task-card-container">
+            
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
