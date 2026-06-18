@@ -34,6 +34,12 @@ const usersData = [
         "name": "Hinata Hyuga",
         "email": "hinata.hyuga@example.com",
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGwtVtUBD42xFTO06_QQIB3miogOlokPCIp-QK4-r8wQ&s=10"
+    },
+    {
+        "id": 6,
+        "name": "Eren Yeager",
+        "email": "eren.yeager@example.com",
+        "image": "https://i.redd.it/kgktom940g1e1.jpeg"
     }
 ]
 
