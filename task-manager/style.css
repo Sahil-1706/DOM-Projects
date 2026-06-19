@@ -302,3 +302,16 @@ section.top {
 .task-bottom .task-time {
     color: gray;
 }
+
+
+.clear-tasks {
+    padding: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+#clear-tasks-btn {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    cursor: pointer;
+}

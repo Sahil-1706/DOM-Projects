@@ -16,28 +16,29 @@ const taskStatus = document.querySelector("#taskStatus");
 const taskCategory = document.querySelector("#taskCategory");
 
 const searchTask = document.querySelector("#searchTask");
+const clearTaskBtn = document.querySelector("#clear-tasks-btn");
 
 const savedTheme = localStorage.getItem("theme");
 
-if(savedTheme === "dark-theme") {
+if (savedTheme === "dark-theme") {
     document.body.classList.add("dark-theme");
     icon.classList.replace("ri-sun-line", "ri-moon-line")
 }
 
-themeButton.addEventListener("click" , () => {
+themeButton.addEventListener("click", () => {
     document.body.classList.toggle("dark-theme");
-    
+
     const isDark = document.body.classList.contains("dark-theme");
 
     localStorage.setItem("theme", isDark ? "dark-theme" : "light-theme");
 
-        icon.classList.toggle("ri-sun-line", !isDark);
-        icon.classList.toggle("ri-moon-line", isDark);
+    icon.classList.toggle("ri-sun-line", !isDark);
+    icon.classList.toggle("ri-moon-line", isDark);
 });
 
 
 function getFormattedTime() {
-    return  new Date().toLocaleTimeString('en-IN', {
+    return new Date().toLocaleTimeString('en-IN', {
         day: "numeric",
         month: "short",
         year: "numeric",
@@ -69,7 +70,7 @@ const renderTasks = () => {
         return statusMatch && categoryMatch && searchMatch;
     })
 
-    console.log(filteredTasks);
+    // console.log(filteredTasks);
 
     filteredTasks.forEach((elem, idx) => {
         taskCardContainer.innerHTML += `
@@ -103,7 +104,7 @@ const renderTasks = () => {
 
 taskStatus.addEventListener("change", () => {
     currentFilter = taskStatus.value;
-    console.log("Currentfilter" + currentFilter);
+    // console.log("Currentfilter" + currentFilter);
     renderTasks();
 })
 
@@ -135,13 +136,13 @@ form.addEventListener("submit", (events) => {
     let category = events.target[2].value;
 
     // console.log(title, descriptioin, category);
-    if(!title) {
+    if (!title) {
         alert("Enter Task Title");
         return;
     };
 
     let task = {
-        id : crypto.randomUUID(),
+        id: crypto.randomUUID(),
         title,
         description,
         category: category || "Uncategorized",
@@ -149,9 +150,9 @@ form.addEventListener("submit", (events) => {
         time: getFormattedTime(),
     }
 
-    if(updateIndex) {
+    if (updateIndex !== null) {
         tasksArr[updateIndex] = task;
-        updateIndex = null; 
+        updateIndex = null;
         events.target[4].textContent = "Add Task";
     } else {
         tasksArr.push(task);
@@ -176,6 +177,7 @@ const deleteTask = (idx) => {
 const editTask = (id) => {
     let currentTask = tasksArr.find((elem) => elem.id === id);
     updateIndex = tasksArr.findIndex((elem) => elem.id === id);
+    // console.log(updateIndex)
 
     overlay.style.display = "flex";
 
@@ -185,6 +187,8 @@ const editTask = (id) => {
 
     form[4].textContent = "Save";
 
+    localStorage.setItem("tasksList", JSON.stringify(tasksArr));
+
 }
 
 // console.log(tasksArr)
@@ -193,9 +197,9 @@ const calculateTotalTasks = () => {
     let pending = 0, completed = 0, categories = 0;
 
     tasksArr.forEach((elem) => {
-        if(elem.status === "Pending") pending++;
-        if(elem.status === "Completed") completed++;
-        if(elem.category !== "Uncategorized"){
+        if (elem.status === "Pending") pending++;
+        if (elem.status === "Completed") completed++;
+        if (elem.category !== "Uncategorized") {
             categories++;
         };
     })
@@ -213,10 +217,10 @@ calculateTotalTasks();
 
 const completeTask = (idx) => {
     tasksArr[idx].status = tasksArr[idx].status === "Pending"
-            ? "Completed"
-            : "Pending";
+        ? "Completed"
+        : "Pending";
 
-            localStorage.setItem(
+    localStorage.setItem(
         "tasksList",
         JSON.stringify(tasksArr)
     );
@@ -225,3 +229,20 @@ const completeTask = (idx) => {
 
     renderTasks();
 }
+
+clearTaskBtn.addEventListener("click", () => {
+    
+    if(tasksArr.length === 0) {
+        alert("Kindly first add task");
+        return;
+    }
+
+    else if(confirm("Are you sure you want to delete all tasks ?")) {
+
+        tasksArr.length = 0;
+        // console.log(tasksArr);
+        localStorage.removeItem("tasksList");
+        taskCardContainer.innerHTML = "";
+        calculateTotalTasks();
+    }
+})
